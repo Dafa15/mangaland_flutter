@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
+import 'package:mangaland_flutter/page/detail/detail_page.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
 import 'package:mangaland_flutter/utils/shared_pref.dart';
 import 'package:provider/provider.dart';
@@ -43,31 +45,58 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.person_3_outlined),
-                  ),
-                  title: Text(
-                    "Welcome!!!",
-                    style: GoogleFonts.poppins(
-                        color: ColorConstant.colorPrimary, fontSize: 12),
-                  ),
-                  subtitle: Text(userName ?? '-',
-                      style: GoogleFonts.poppins(
-                          color: ColorConstant.colorSecondary, fontSize: 16)),
-                  trailing: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        size: 24,
-                        Icons.search,
-                        color: ColorConstant.colorPrimary,
-                      )),
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: ColorConstant.colorSecondary,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Icon(
+                                Icons.person,
+                                color: ColorConstant.colorPrimary,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Welcome!!!",
+                                  style: GoogleFonts.poppins(
+                                      color: ColorConstant.colorPrimary,
+                                      fontSize: 12),
+                                ),
+                                Text(
+                                  "Dafa",
+                                  style: GoogleFonts.poppins(
+                                      color: ColorConstant.colorSecondary,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          Icons.search,
+                          color: ColorConstant.colorPrimary,
+                        )
+                      ],
+                    ),
+                  )),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
@@ -88,60 +117,78 @@ class _HomePageState extends State<HomePage> {
                       final imageUrl = homeViewModel.getCoverUrl(
                           homeViewModel.popularManga[index].id,
                           homeViewModel.popularManga[index].coverArt!.filename);
+                      // debugPrint('tes apakah disini $imageUrl');
+
                       return Padding(
                         padding: const EdgeInsets.only(left: 16.0),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(imageUrl),
-                                )),
-                            width: 250,
-                            child: Stack(children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Opacity(
-                                  opacity: 0.5,
-                                  child: Container(
-                                    height: 75,
-                                    color: const Color(0xFF000000),
+                        child: GestureDetector(
+                          onTap: () {
+                            final popularMangaData =
+                                homeViewModel.popularManga[index];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailPage(
+                                  mangaId: popularMangaData.id,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(imageUrl),
+                                  )),
+                              width: 200,
+                              child: Stack(children: [
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Opacity(
+                                    opacity: 0.5,
+                                    child: Container(
+                                      height: 75,
+                                      color: const Color(0xFF000000),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      homeViewModel.popularManga[index].title,
-                                      maxLines: 1,
-                                      style: TextStyleConstant.header1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: Color(0xFFFFFF00),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          '${homeViewModel.popularManga[index].statistics?.rating.average}',
-                                          style: TextStyle(
-                                              color: ColorConstant.colorPrimary,
-                                              fontSize: 12),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        homeViewModel.popularManga[index].title,
+                                        maxLines: 1,
+                                        style: TextStyleConstant.header1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: Color(0xFFFFFF00),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            '${homeViewModel.popularManga[index].statistics?.rating.average}',
+                                            style: TextStyle(
+                                                color:
+                                                    ColorConstant.colorPrimary,
+                                                fontSize: 12),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ])),
+                              ])),
+                        ),
                       );
                     }),
               ),
@@ -149,7 +196,9 @@ class _HomePageState extends State<HomePage> {
                 height: 24,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,25 +229,39 @@ class _HomePageState extends State<HomePage> {
                         homeViewModel.recentManga[index].coverArt!.filename);
                     return Padding(
                       padding: const EdgeInsets.only(left: 16.0),
-                      child: SizedBox(
-                        width: 120,
-                        child: Column(
-                          children: [
-                            Image.network(
-                              imageUrl,
-                              width: 120,
-                              height: 170,
-                              fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          final recentMangaData =
+                              homeViewModel.recentManga[index];
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailPage(
+                                mangaId: recentMangaData.id,
+                              ),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              homeViewModel.recentManga[index].title,
-                              style: TextStyleConstant.p2,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
+                          );
+                        },
+                        child: SizedBox(
+                          width: 120,
+                          child: Column(
+                            children: [
+                              Image.network(
+                                imageUrl,
+                                width: 120,
+                                height: 170,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                homeViewModel.recentManga[index].title,
+                                style: TextStyleConstant.p2,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -240,25 +303,38 @@ class _HomePageState extends State<HomePage> {
                         homeViewModel.completedManga[index].coverArt!.filename);
                     return Padding(
                       padding: const EdgeInsets.only(left: 16.0),
-                      child: SizedBox(
-                        width: 120,
-                        child: Column(
-                          children: [
-                            Image.network(
-                              imageUrl,
-                              width: 120,
-                              height: 170,
-                              fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          final completedMangaData =
+                              homeViewModel.completedManga[index];
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailPage(mangaId: completedMangaData.id),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Text(
-                              homeViewModel.completedManga[index].title,
-                              style: TextStyleConstant.p2,
-                              overflow: TextOverflow.ellipsis,
-                            )
-                          ],
+                          );
+                        },
+                        child: SizedBox(
+                          width: 120,
+                          child: Column(
+                            children: [
+                              Image.network(
+                                imageUrl,
+                                width: 120,
+                                height: 170,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                homeViewModel.completedManga[index].title,
+                                style: TextStyleConstant.p2,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );

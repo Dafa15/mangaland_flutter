@@ -27,4 +27,17 @@ class TextStyleConstant {
       fontWeight: FontWeight.w300,
       fontSize: 12,
       color: ColorConstant.colorPrimary);
+  static TextStyle p3 = GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 12,
+      color: ColorConstant.colorPrimary);
+  static TextStyle p4 = GoogleFonts.poppins(
+    color: ColorConstant.colorOnPrimary,
+    fontSize: 12,
+  );
+  static TextStyle p5 = GoogleFonts.poppins(
+    color: ColorConstant.colorSecondary,
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+  );
 }

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/model/author.dart';
 import 'package:mangaland_flutter/model/cover_art.dart';
 import 'package:mangaland_flutter/model/manga.dart';
@@ -47,8 +46,7 @@ class HomeService {
           status: resultData['attributes']['status'],
           year: resultData['attributes']['year'],
           tags: mangaTag);
-    } catch (e, stackTrace) {
-      debugPrint("Ini stackTrace $stackTrace");
+    } catch (e) {
       throw Exception(e);
     }
 
@@ -118,13 +116,10 @@ class HomeService {
             year: mangaData['attributes']['year'],
             tags: mangaTag);
         listManga.add(manga);
-        debugPrint('ini salahnya ${mangaData['attributes']['status']}');
       }
 
       return listManga;
-    } catch (e, stackTrace) {
-      debugPrint("Ini stackTrace $stackTrace");
-
+    } catch (e) {
       throw Exception(e);
     }
   }
