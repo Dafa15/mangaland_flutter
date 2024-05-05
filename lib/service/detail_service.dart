@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:mangaland_flutter/model/author.dart';
 import 'package:mangaland_flutter/model/chapter.dart';
@@ -32,7 +31,6 @@ class DetailService {
         DateTime dateTime = DateTime.parse(publishAt);
 
         String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
-        debugPrint("apakah disini ${data['attributes']['translatedLanguage']}");
         if (data['attributes']['translatedLanguage'] == 'en' ||
             data['attributes']['translatedLanguage'] == 'jp') {
           chapter = Chapter(

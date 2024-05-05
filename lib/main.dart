@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mangaland_flutter/page/chapter/chapter_view_model.dart';
 import 'package:mangaland_flutter/page/detail/detail_view_model.dart';
 import 'package:mangaland_flutter/page/home/home_page.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => DetailViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChapterViewModel(),
         ),
       ],
       child: const MaterialApp(

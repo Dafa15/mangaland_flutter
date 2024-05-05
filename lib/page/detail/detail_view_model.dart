@@ -5,17 +5,18 @@ import 'package:mangaland_flutter/service/detail_service.dart';
 
 class DetailViewModel extends ChangeNotifier {
   List<Chapter> listChapter = [];
-  bool isLoading = false;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
   void getChapterList({required String id}) async {
     try {
-      isLoading = true;
+      _isLoading = true;
       listChapter = await DetailService.getChapterList(mangaId: id);
       notifyListeners();
     } catch (e) {
       throw Exception(e);
     } finally {
-      isLoading = false;
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -27,14 +28,14 @@ class DetailViewModel extends ChangeNotifier {
 
   Future<Manga> getMangaData({required String id}) async {
     try {
-      isLoading = true;
+      _isLoading = true;
       final manga = await DetailService.getMangaDetail(id: id);
       notifyListeners();
       return manga;
     } catch (e) {
       throw Exception(e);
     } finally {
-      isLoading = false;
+      _isLoading = false;
       notifyListeners();
     }
   }

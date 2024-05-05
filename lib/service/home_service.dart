@@ -57,7 +57,7 @@ class HomeService {
     List<Manga> popularList = [];
     try {
       final responsePopularList = await dio
-          .get("${BaseUrl.baseUrl}/list/79597a8b-4071-4bf0-91e0-3032730c106b");
+          .get("${BaseUrl.baseUrl}/list/f9754bfe-c700-438b-8550-86c6f96eff41");
       final listMangaResponse = responsePopularList.data['data'];
 
       for (var mangaData in listMangaResponse['relationships']) {

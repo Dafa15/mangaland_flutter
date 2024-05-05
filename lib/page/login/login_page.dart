@@ -124,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
                             final isSuccess = await loginProvider.postLogin(
                                 userName: userNameController.value.text,
                                 password: passwordController.value.text);
-                            debugPrint("halo tes $isSuccess");
                             if (isSuccess) {
                               Navigator.pushReplacement(
                                   context,

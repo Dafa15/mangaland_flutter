@@ -10,7 +10,6 @@ class LoginViewModel extends ChangeNotifier {
       _isLoading = true;
       final result =
           await LoginService.postLogin(userName: userName, password: password);
-      debugPrint("ini Login provider $result");
       return result;
     } catch (e) {
       throw Exception(e);

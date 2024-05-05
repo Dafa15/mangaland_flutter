@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/model/login_response.dart';
 import 'package:mangaland_flutter/utils/base_url.dart';
 import 'package:mangaland_flutter/utils/client.dart';
@@ -20,7 +19,6 @@ class LoginService {
         'client_id': ClientKey.clientId,
         'client_secret': ClientKey.clientSecretKey,
       };
-      debugPrint("$data");
       final response = await dio.post(BaseUrl.loginUrl,
           data: data,
           options: Options(headers: {

@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage> {
                       final imageUrl = homeViewModel.getCoverUrl(
                           homeViewModel.popularManga[index].id,
                           homeViewModel.popularManga[index].coverArt!.filename);
-                      // debugPrint('tes apakah disini $imageUrl');
 
                       return Padding(
                         padding: const EdgeInsets.only(left: 16.0),
