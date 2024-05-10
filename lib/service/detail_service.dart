@@ -4,19 +4,23 @@ import 'package:mangaland_flutter/model/author.dart';
 import 'package:mangaland_flutter/model/chapter.dart';
 import 'package:mangaland_flutter/model/cover_art.dart';
 import 'package:mangaland_flutter/model/manga.dart';
-import 'package:mangaland_flutter/model/statistik_response.dart';
+import 'package:mangaland_flutter/service/home_service.dart';
 import 'package:mangaland_flutter/service/parse_data.dart';
 import 'package:mangaland_flutter/utils/base_url.dart';
+import 'package:mangaland_flutter/utils/shared_pref.dart';
 
 class DetailService {
   static Dio dio = Dio();
 
-  static Future<List<Chapter>> getChapterList({required String mangaId}) async {
+  static Future<List<Chapter>> getChapterList(
+      {required String mangaId, required int offSet}) async {
     List<Chapter> listChapter = [];
+    String chapterNow = "-1";
     try {
       final response =
           await dio.get("${BaseUrl.baseUrl}/chapter", queryParameters: {
         'limit': 100,
+        'offset': offSet,
         'contentRating[]': ['safe', 'suggestive', 'erotica'],
         'manga': mangaId,
         'order[chapter]': 'desc'
@@ -31,8 +35,7 @@ class DetailService {
         DateTime dateTime = DateTime.parse(publishAt);
 
         String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
-        if (data['attributes']['translatedLanguage'] == 'en' ||
-            data['attributes']['translatedLanguage'] == 'jp') {
+        if (data['attributes']['chapter'] != chapterNow) {
           chapter = Chapter(
               id: data['id'],
               volume: data['attributes']['volume'],
@@ -43,6 +46,7 @@ class DetailService {
               version: data['attributes']['version']);
 
           listChapter.add(chapter);
+          chapterNow = data['attributes']['chapter'];
         }
       }
       return listChapter;
@@ -75,7 +79,7 @@ class DetailService {
         }
       }
 
-      final mangaStatistics = await getMangaStatistic(id);
+      final mangaStatistics = await HomeService.getMangaStatistic(id);
       final mangaTag = ParseData.mangaTag(resultData['attributes']['tags']);
       manga = Manga(
           coverArt: coverArtManga,
@@ -94,23 +98,42 @@ class DetailService {
     return manga;
   }
 
-  static Future<Statistics> getMangaStatistic(String id) async {
-    try {
-      final response = await dio.get('${BaseUrl.baseUrl}/statistics/manga',
-          queryParameters: {'manga[]': id});
-      final resultData = response.data['statistics'][id];
-      Statistics statistics = Statistics(
-        follows: resultData['follows'],
-        rating: Rating(
-          average: resultData['rating']['average'],
-          bayesian: resultData['rating']['bayesian'],
-        ),
-      );
+  static Future<String> postFollow(String id) async {
+      final token = await SharedPref.getToken();
+      Map<String, dynamic> headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+      final response = await dio.post("${BaseUrl.baseUrl}/manga/$id/follow",
+          options: Options(headers: headers));
+      final result = response.data['result'];
+      return result;
+  }
 
-      return statistics;
-    } catch (e) {
-      throw Exception(e);
-    }
+  static Future<String> checkFollow(String id) async {
+      final token = await SharedPref.getToken();
+      Map<String, dynamic> headers = {
+        'Authorization':
+            'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+      final response = await dio.get(
+          "${BaseUrl.baseUrl}/user/follows/manga/$id",
+          options: Options(headers: headers));
+      final result = response.data['result'];
+      return result;
+  }
+
+  static Future<String> deleteFollow(String id) async {
+      final token = await SharedPref.getToken();
+      Map<String, dynamic> headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json', // Example header
+      };
+      final response = await dio.delete("${BaseUrl.baseUrl}/manga/$id/follow",
+          options: Options(headers: headers));
+      final result = response.data['result'];
+      return result;
   }
 
   static String getCover(String id, String fileName) {

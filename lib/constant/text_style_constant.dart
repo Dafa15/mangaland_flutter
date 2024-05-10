@@ -15,6 +15,10 @@ class TextStyleConstant {
       fontWeight: FontWeight.w500,
       color: ColorConstant.colorSecondary,
       fontSize: 16);
+  static TextStyle header4 = GoogleFonts.oswald(
+      fontWeight: FontWeight.bold,
+      color: ColorConstant.colorPrimary,
+      fontSize: 20);
   static TextStyle header1 = GoogleFonts.oswald(
       fontWeight: FontWeight.bold,
       color: ColorConstant.colorPrimary,

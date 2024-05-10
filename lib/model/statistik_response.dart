@@ -26,8 +26,8 @@ class Statistics {
 }
 
 class Rating {
-  double? average;
-  double? bayesian;
+  num? average;
+  num? bayesian;
 
   Rating({
     required this.average,

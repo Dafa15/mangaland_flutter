@@ -34,21 +34,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginViewModel>(context);
     return Scaffold(
       backgroundColor: ColorConstant.bgColor,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Consumer<LoginViewModel>(
+              builder: (BuildContext context, LoginViewModel viewModel, child) {
+                return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 16,
+                      height: 100,
                     ),
                     Image.asset(
                       "assets/mangaland_logo.png",
@@ -69,8 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                       height: 8,
                     ),
                     TextFormFieldCustom(
+                      key: const Key("Username"),
                       formController: userNameController,
-                      formName: "UserName",
+                      formName: "Username",
                     ),
                     const SizedBox(
                       height: 8,
@@ -86,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 8,
                     ),
                     TextFormFieldCustom(
+                      key: const Key("Password"),
                       formName: "Password",
                       formController: passwordController,
                       iconToggle: passwordToggle,
@@ -105,65 +106,74 @@ class _LoginPageState extends State<LoginPage> {
                       height: 16,
                     ),
                     ElevatedButton(
-                        style: ButtonStyle(
-                          fixedSize: const MaterialStatePropertyAll(
-                              Size(double.infinity, 50)),
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                5,
-                              ),
-                            ),
-                          ),
-                          backgroundColor: MaterialStatePropertyAll(
-                            ColorConstant.colorSecondary,
+                      key: const Key("LoginButton"),
+                      style: ButtonStyle(
+                        fixedSize: const MaterialStatePropertyAll(
+                          Size(double.infinity, 50),
+                        ),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final isSuccess = await loginProvider.postLogin(
-                                userName: userNameController.value.text,
-                                password: passwordController.value.text);
-                            if (isSuccess) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HomePage()));
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text("Login Error"),
-                                    content: const Text(
-                                        "Failed to login. Please check your credentials."),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("OK"),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
+                        backgroundColor: MaterialStatePropertyAll(
+                          ColorConstant.colorSecondary,
+                        ),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          final isSuccess = await viewModel.postLogin(
+                            userName: userNameController.text,
+                            password: passwordController.text,
+                          );
+                          if (isSuccess) {
+                            resetVariable();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(
+                                  index: 0,
+                                ),
+                              ),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Login Error"),
+                                  content: const Text(
+                                    "Failed to login. Please check your credentials.",
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           }
-                        },
-                        child: Center(
-                          child: Text(
-                            "Login",
-                            style: TextStyleConstant.header2,
-                          ),
-                        ))
+                        }
+                      },
+                      child: Center(
+                        child: viewModel.isLoading
+                            ? const CircularProgressIndicator()
+                            : Text(
+                                "Login",
+                                style: TextStyleConstant.header2,
+                              ),
+                      ),
+                    ),
                   ],
-                ),
-              ),
+                );
+              },
             ),
           ),
-          if (loginProvider.isLoading) const CircularProgressIndicator(),
-        ],
+        ),
       ),
     );
   }

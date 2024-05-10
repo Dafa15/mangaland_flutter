@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 String _keyToken = 'token';
-String _keyName = 'name';
+String _keyRefreshToken = 'refresh_token';
 
 class SharedPref {
   static void saveToken({required String token}) async {
@@ -9,11 +9,10 @@ class SharedPref {
 
     await preferences.setString(_keyToken, token);
   }
-
-  static void saveName({required String name}) async {
+  static void saveRefreshToken({required String token}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    await preferences.setString(_keyName, name);
+    await preferences.setString(_keyRefreshToken, token);
   }
 
   static Future<String?> getToken() async {
@@ -23,10 +22,15 @@ class SharedPref {
     return token;
   }
 
-  static Future<String?> getName() async {
+  static Future<String?> getRefreshToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? name = preferences.getString(_keyName);
+    String? token = preferences.getString(_keyRefreshToken);
 
-    return name;
+    return token;
+  }
+
+  static void removeAllKey() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
   }
 }

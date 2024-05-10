@@ -21,12 +21,6 @@ class TextFormFieldCustom extends StatefulWidget {
 
 class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
   @override
-  void dispose() {
-    widget.formController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.formController,
@@ -34,18 +28,18 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
       decoration: InputDecoration(
         filled: true,
         fillColor: ColorConstant.colorPrimary,
-        hintText: "Insert Your ${widget.formName}",
+        hintText: "Input Your ${widget.formName}",
         suffixIcon: widget.suffixButton,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return '${widget.formName} tidak boleh kosong';
+          return '${widget.formName} cannot be empty';
         }
         if (value.length < 6) {
-          return '${widget.formName} tidak boleh kurang dari 6';
+          return '${widget.formName} must be at least 6 characters long';
         }
         return null;
       },

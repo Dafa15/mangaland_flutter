@@ -10,6 +10,7 @@
 .svn/
 migrate_working_dir/
 /lib/utils/client.dart
+/lib/utils/gemini_key.dart
 
 # IntelliJ related
 *.iml

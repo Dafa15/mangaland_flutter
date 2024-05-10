@@ -6,25 +6,18 @@ class HomeViewModel extends ChangeNotifier {
   List<Manga> recentManga = [];
   List<Manga> popularManga = [];
   List<Manga> completedManga = [];
+  List<Manga> onGoingManga = [];
 
-  void getPopularList() async {
+  Future<void> getAllList() async {
     popularManga = await HomeService.getPopularManga();
+    recentManga = await HomeService.getRecentListManga(0);
+    completedManga = await HomeService.getCompletedManga(0);
+    onGoingManga = await HomeService.getOnGoingManga(0);
     notifyListeners();
   }
 
-  void getRecentList() async {
-    recentManga = await HomeService.getRecentListManga();
-    notifyListeners();
-  }
-
-  void getCompletedManga() async {
-    completedManga = await HomeService.getCompletedManga();
-    notifyListeners();
-  }
-
-  String getCoverUrl(String idCover, String fileNameCover) {
+  String getCoverUrl({required String idCover, required String fileNameCover}) {
     final coverUrl = HomeService.getCover(idCover, fileNameCover);
-    notifyListeners();
     return coverUrl;
   }
 }

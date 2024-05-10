@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mangaland_flutter/service/login_service.dart';
+import 'package:mangaland_flutter/service/auth_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
   bool _isLoading = false;
@@ -8,8 +8,9 @@ class LoginViewModel extends ChangeNotifier {
       {required String userName, required String password}) async {
     try {
       _isLoading = true;
+      notifyListeners();
       final result =
-          await LoginService.postLogin(userName: userName, password: password);
+          await AuthService.postLogin(userName: userName, password: password);
       return result;
     } catch (e) {
       throw Exception(e);
