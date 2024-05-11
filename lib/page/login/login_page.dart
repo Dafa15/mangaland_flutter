@@ -3,7 +3,7 @@ import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/home/home_page.dart';
 import 'package:mangaland_flutter/page/login/login_view_model.dart';
-import 'package:mangaland_flutter/page/login/widget/text_form_field_widget.dart';
+import 'package:mangaland_flutter/page/global_widget/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
