@@ -89,7 +89,7 @@ class _PopularSectionState extends State<PopularSection> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 24),
+                              horizontal: 16.0, vertical: 32),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,

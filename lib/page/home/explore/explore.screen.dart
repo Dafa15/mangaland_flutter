@@ -20,6 +20,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       child: Scaffold(
           backgroundColor: ColorConstant.bgColor,
           appBar: AppBar(
+            centerTitle: true,
             title: Text(
               "Explore",
               style: TextStyleConstant.header1,

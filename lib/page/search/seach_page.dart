@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/detail/detail_page.dart';
@@ -50,7 +51,9 @@ class _SearchPageState extends State<SearchPage> {
               child: TextField(
                 controller: searchController,
                 onSubmitted: (value) async {
-                  viewModel.getSearchList(value);
+                  if (searchController.text.isNotEmpty) {
+                    viewModel.getSearchList(value);
+                  }
                 },
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
@@ -77,10 +80,12 @@ class _SearchPageState extends State<SearchPage> {
                 : viewModel.listManga.isEmpty
                     ? Expanded(
                         child: Center(
-                          child: Text(
-                            "Manga is empty",
-                            style: TextStyleConstant.header2,
-                          ),
+                          child: searchController.text.isEmpty
+                              ? Lottie.asset('assets/search.json', height: 200)
+                              : Text(
+                                  "Manga not found",
+                                  style: TextStyleConstant.header2,
+                                ),
                         ),
                       )
                     : Expanded(

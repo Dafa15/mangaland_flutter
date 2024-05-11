@@ -39,7 +39,6 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
-  anim_search_bar: ^2.0.3
   intl: ^0.19.0
   transparent_image: ^2.0.1
   flutter_scroll_to_top: ^2.3.0
@@ -78,6 +77,7 @@ flutter:
     - assets/mangaland_logo.png
     - assets/luffy.png
     - assets/chainsaw.json
+    - assets/search.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
