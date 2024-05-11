@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:mangaland_flutter/page/recommendation/recommendation_view_model.dart';
 import 'package:mangaland_flutter/utils/gemini_key.dart';
 import 'package:mangaland_flutter/page/chapter/chapter_view_model.dart';
 import 'package:mangaland_flutter/page/detail/detail_view_model.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SearchViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RecommendationViewModel(),
         ),
       ],
       child: const MaterialApp(
