@@ -6,8 +6,6 @@ import 'package:mangaland_flutter/service/auth_service.dart';
 import 'package:mangaland_flutter/service/detail_service.dart';
 
 class DetailViewModel extends ChangeNotifier {
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
   bool follow = false;
   Manga? manga;
 
@@ -16,7 +14,6 @@ class DetailViewModel extends ChangeNotifier {
     try {
       final listChapter =
           await DetailService.getChapterList(mangaId: id, offSet: offSet);
-      notifyListeners();
       return listChapter;
     } catch (e) {
       throw Exception(e);
@@ -63,7 +60,6 @@ class DetailViewModel extends ChangeNotifier {
 
   void checkFollowManga(String id) async {
     follow = false;
-    notifyListeners();
     try {
       final result = await DetailService.checkFollow(id);
       if (result == "ok") {
@@ -92,15 +88,12 @@ class DetailViewModel extends ChangeNotifier {
 
   Future<void> getMangaData({required String id}) async {
     manga = null;
-    notifyListeners();
     try {
       checkFollowManga(id);
       manga = await DetailService.getMangaDetail(id: id);
       notifyListeners();
     } catch (e) {
       throw Exception(e);
-    } finally {
-      notifyListeners();
     }
   }
 }

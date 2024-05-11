@@ -19,12 +19,6 @@ class PagedGridViewCustom extends StatefulWidget {
 class _PagedGridViewCustomState extends State<PagedGridViewCustom> {
 
   @override
-  void dispose() {
-    widget.mangaController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<HomeViewModel>(builder: (context, viewModel, child) {
       return PagedGridView<int, Manga>(
