@@ -4,6 +4,7 @@ import 'package:mangaland_flutter/service/auth_service.dart';
 class LoginViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+  
   Future<bool> postLogin(
       {required String userName, required String password}) async {
     try {

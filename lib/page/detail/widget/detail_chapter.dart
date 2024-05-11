@@ -61,13 +61,7 @@ class _DetailChapterState extends State<DetailChapter> {
             child: PagedListView<int, Chapter>(
                 pagingController: _chapterController,
                 builderDelegate: PagedChildBuilderDelegate(
-                    firstPageProgressIndicatorBuilder: (context) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: ColorConstant.colorPrimary,
-                    ),
-                  );
-                }, firstPageErrorIndicatorBuilder: (context) {
+                    firstPageErrorIndicatorBuilder: (context) {
                   return Center(
                     child: Text(
                       "There is no chapter",

@@ -86,7 +86,8 @@ class _PopularSectionState extends State<PopularSection> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 24),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,6 +114,11 @@ class _PopularSectionState extends State<PopularSection> {
                                         fontSize: 12),
                                   )
                                 ],
+                              ),
+                              Text(
+                                "${viewModel.popularManga[itemIndex].tags?[0].name}, ${viewModel.popularManga[itemIndex].tags?[1].name}, ${viewModel.popularManga[itemIndex].tags?[2].name}..",
+                                maxLines: 1,
+                                style: TextStyleConstant.p2,
                               ),
                             ],
                           ),

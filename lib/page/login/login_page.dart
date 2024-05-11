@@ -3,7 +3,7 @@ import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/home/home_page.dart';
 import 'package:mangaland_flutter/page/login/login_view_model.dart';
-import 'package:mangaland_flutter/widget/text_form_field_widget.dart';
+import 'package:mangaland_flutter/page/login/widget/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -36,144 +36,160 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.bgColor,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Consumer<LoginViewModel>(
-              builder: (BuildContext context, LoginViewModel viewModel, child) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 100,
-                    ),
-                    Image.asset(
-                      "assets/mangaland_logo.png",
-                      width: 300,
-                      height: 200,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Username",
-                        style: TextStyleConstant.header2,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextFormFieldCustom(
-                      key: const Key("Username"),
-                      formController: userNameController,
-                      formName: "Username",
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Password",
-                        style: TextStyleConstant.header2,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextFormFieldCustom(
-                      key: const Key("Password"),
-                      formName: "Password",
-                      formController: passwordController,
-                      iconToggle: passwordToggle,
-                      suffixButton: IconButton(
-                        icon: Icon(
-                          passwordToggle
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Consumer<LoginViewModel>(
+                  builder:
+                      (BuildContext context, LoginViewModel viewModel, child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 100,
                         ),
-                        onPressed: () {
-                          passwordToggle = !passwordToggle;
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ElevatedButton(
-                      key: const Key("LoginButton"),
-                      style: ButtonStyle(
-                        fixedSize: const MaterialStatePropertyAll(
-                          Size(double.infinity, 50),
+                        Image.asset(
+                          "assets/mangaland_logo.png",
+                          width: 300,
+                          height: 200,
                         ),
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Username",
+                            style: TextStyleConstant.header2,
                           ),
                         ),
-                        backgroundColor: MaterialStatePropertyAll(
-                          ColorConstant.colorSecondary,
+                        const SizedBox(
+                          height: 8,
                         ),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          final isSuccess = await viewModel.postLogin(
-                            userName: userNameController.text,
-                            password: passwordController.text,
-                          );
-                          if (isSuccess) {
-                            resetVariable();
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(
-                                  index: 0,
-                                ),
+                        TextFormFieldCustom(
+                          key: const Key("Username"),
+                          formController: userNameController,
+                          formName: "Username",
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Password",
+                            style: TextStyleConstant.header2,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        TextFormFieldCustom(
+                          key: const Key("Password"),
+                          formName: "Password",
+                          formController: passwordController,
+                          iconToggle: passwordToggle,
+                          suffixButton: IconButton(
+                            icon: Icon(
+                              passwordToggle
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                passwordToggle = !passwordToggle;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ElevatedButton(
+                          key: const Key("LoginButton"),
+                          style: ButtonStyle(
+                            fixedSize: const MaterialStatePropertyAll(
+                              Size(double.infinity, 50),
+                            ),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Login Error"),
-                                  content: const Text(
-                                    "Failed to login. Please check your credentials.",
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("OK"),
+                            ),
+                            backgroundColor: MaterialStatePropertyAll(
+                              ColorConstant.colorSecondary,
+                            ),
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final isSuccess = await viewModel.postLogin(
+                                userName: userNameController.text,
+                                password: passwordController.text,
+                              );
+                              if (isSuccess) {
+                                resetVariable();
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(
+                                      index: 0,
                                     ),
-                                  ],
+                                  ),
                                 );
-                              },
-                            );
-                          }
-                        }
-                      },
-                      child: Center(
-                        child: viewModel.isLoading
-                            ? const CircularProgressIndicator()
-                            : Text(
-                                "Login",
-                                style: TextStyleConstant.header2,
-                              ),
-                      ),
-                    ),
-                  ],
-                );
-              },
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text("Login Error"),
+                                      content: const Text(
+                                        "Failed to login. Please check your credentials.",
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("OK"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                            }
+                          },
+                          child: Center(
+                            child: Text(
+                              "Login",
+                              style: TextStyleConstant.header2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
             ),
           ),
-        ),
+          Consumer<LoginViewModel>(
+            builder: (BuildContext context, LoginViewModel viewModel, child) {
+              return viewModel.isLoading
+                  ? Container(
+                      color: Colors.black.withOpacity(0.5),
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : const SizedBox.shrink();
+            },
+          ),
+        ],
       ),
     );
   }

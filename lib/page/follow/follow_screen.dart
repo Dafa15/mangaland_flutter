@@ -81,13 +81,29 @@ class _FollowScreenState extends State<FollowScreen> {
           padding: const EdgeInsets.all(16),
           pagingController: _mangaController,
           builderDelegate: PagedChildBuilderDelegate(
-              itemBuilder: (context, Manga item, int index) {
+              noItemsFoundIndicatorBuilder: (context) {
+            return Center(
+              child: Text(
+                "There is no followed manga",
+                style: TextStyleConstant.header2,
+              ),
+            );
+          }, firstPageErrorIndicatorBuilder: (context) {
+            return Center(
+              child: Text(
+                "Failed to load followed manga",
+                style: TextStyleConstant.header2,
+              ),
+            );
+          }, itemBuilder: (context, Manga item, int index) {
             return GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailPage(mangaId: item.id)));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailPage(mangaId: item.id)))
+                      .then((value) => _mangaController.refresh());
                 },
                 child: Column(
                   children: [
