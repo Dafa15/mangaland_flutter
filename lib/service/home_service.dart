@@ -76,8 +76,6 @@ class HomeService {
   }
 
   static Future<List<Manga>> getRecentListManga(int offset) async {
-    List<Manga> listManga = [];
-
     try {
       final response =
           await dio.get("${BaseUrl.baseUrl}/manga", queryParameters: {
@@ -88,37 +86,7 @@ class HomeService {
       });
       final resultData = response.data['data'];
 
-      for (var mangaData in resultData) {
-        Manga? manga;
-        Author? authorManga;
-        CoverArt? coverArtManga;
-        for (var relation in mangaData['relationships']) {
-          switch (relation['type']) {
-            case "author":
-              authorManga = ParseData.authorFromRelationship(relation);
-              break;
-            case "cover_art":
-              coverArtManga = ParseData.coverArtFromRelationship(relation);
-              break;
-          }
-        }
-
-        final mangaStatistics = await getMangaStatistic(mangaData['id']);
-        final mangaTag = ParseData.mangaTag(mangaData['attributes']['tags']);
-
-        manga = Manga(
-            coverArt: coverArtManga,
-            author: authorManga,
-            statistics: mangaStatistics,
-            id: mangaData['id'],
-            title: mangaData['attributes']['title']['en'].toString(),
-            description:
-                mangaData['attributes']['description']['en'].toString(),
-            status: mangaData['attributes']['status'].toString(),
-            year: mangaData['attributes']['year'],
-            tags: mangaTag);
-        listManga.add(manga);
-      }
+      final listManga = ParseData.parseListManga(resultData);
 
       return listManga;
     } catch (e) {
@@ -146,7 +114,6 @@ class HomeService {
   }
 
   static Future<List<Manga>> getCompletedManga(int offset) async {
-    List<Manga> completedManga = [];
     try {
       final response =
           await dio.get("${BaseUrl.baseUrl}/manga", queryParameters: {
@@ -158,37 +125,7 @@ class HomeService {
       });
       final resultData = response.data['data'];
 
-      for (var mangaData in resultData) {
-        Manga? manga;
-        Author? authorManga;
-        CoverArt? coverArtManga;
-        for (var relation in mangaData['relationships']) {
-          switch (relation['type']) {
-            case "author":
-              authorManga = ParseData.authorFromRelationship(relation);
-              break;
-            case "cover_art":
-              coverArtManga = ParseData.coverArtFromRelationship(relation);
-              break;
-          }
-        }
-
-        final mangaStatistics = await getMangaStatistic(mangaData['id']);
-        final mangaTag = ParseData.mangaTag(mangaData['attributes']['tags']);
-
-        manga = Manga(
-            coverArt: coverArtManga,
-            author: authorManga,
-            statistics: mangaStatistics,
-            id: mangaData['id'],
-            title: mangaData['attributes']['title']['en'].toString(),
-            description:
-                mangaData['attributes']['description']['en'].toString(),
-            status: mangaData['attributes']['status'].toString(),
-            year: mangaData['attributes']['year'],
-            tags: mangaTag);
-        completedManga.add(manga);
-      }
+      final completedManga = ParseData.parseListManga(resultData);
 
       return completedManga;
     } catch (e) {
@@ -197,7 +134,6 @@ class HomeService {
   }
 
   static Future<List<Manga>> getOnGoingManga(int offset) async {
-    List<Manga> ongoingList = [];
     try {
       final response =
           await dio.get("${BaseUrl.baseUrl}/manga", queryParameters: {
@@ -209,39 +145,9 @@ class HomeService {
       });
       final resultData = response.data['data'];
 
-      for (var mangaData in resultData) {
-        Manga? manga;
-        Author? authorManga;
-        CoverArt? coverArtManga;
-        for (var relation in mangaData['relationships']) {
-          switch (relation['type']) {
-            case "author":
-              authorManga = ParseData.authorFromRelationship(relation);
-              break;
-            case "cover_art":
-              coverArtManga = ParseData.coverArtFromRelationship(relation);
-              break;
-          }
-        }
+      final onGoingManga = ParseData.parseListManga(resultData);
 
-        final mangaStatistics = await getMangaStatistic(mangaData['id']);
-        final mangaTag = ParseData.mangaTag(mangaData['attributes']['tags']);
-
-        manga = Manga(
-            coverArt: coverArtManga,
-            author: authorManga,
-            statistics: mangaStatistics,
-            id: mangaData['id'],
-            title: mangaData['attributes']['title']['en'].toString(),
-            description:
-                mangaData['attributes']['description']['en'].toString(),
-            status: mangaData['attributes']['status'].toString(),
-            year: mangaData['attributes']['year'],
-            tags: mangaTag);
-        ongoingList.add(manga);
-      }
-
-      return ongoingList;
+      return onGoingManga;
     } catch (e) {
       throw Exception(e);
     }
