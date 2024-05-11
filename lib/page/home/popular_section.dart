@@ -26,9 +26,11 @@ class _PopularSectionState extends State<PopularSection> {
             FlutterCarousel.builder(
               itemCount: viewModel.popularManga.length,
               options: CarouselOptions(
-                height: 400,
-                viewportFraction: 1.0,
-              ),
+                  height: 400,
+                  viewportFraction: 1.0,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 10),
+                  autoPlayAnimationDuration: const Duration(seconds: 1)),
               itemBuilder: (context, int itemIndex, int pageIndex) {
                 final imageUrl = viewModel.getCoverUrl(
                     idCover: viewModel.popularManga[itemIndex].id,
