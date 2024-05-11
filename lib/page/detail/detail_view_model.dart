@@ -31,7 +31,14 @@ class DetailViewModel extends ChangeNotifier {
         notifyListeners();
       }
     } on DioException catch (e) {
-      retryToken(e, id);
+      if (e.response?.statusCode == 401) {
+        final response = await AuthService.postRefreshToken();
+        if (response == true) {
+          postFollowManga(id);
+        }
+      } else {
+        throw Exception(e);
+      }
     }
   }
 
@@ -43,13 +50,19 @@ class DetailViewModel extends ChangeNotifier {
         notifyListeners();
       }
     } on DioException catch (e) {
-      retryToken(e, id);
+      if (e.response?.statusCode == 401) {
+        final response = await AuthService.postRefreshToken();
+        if (response == true) {
+          deleteFollowManga(id);
+        }
+      } else {
+        throw Exception(e);
+      }
     }
   }
 
   void checkFollowManga(String id) async {
     follow = false;
-    _isLoading = true;
     notifyListeners();
     try {
       final result = await DetailService.checkFollow(id);
@@ -61,10 +74,14 @@ class DetailViewModel extends ChangeNotifier {
         notifyListeners();
       }
     } on DioException catch (e) {
-      retryToken(e, id);
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      if (e.response?.statusCode == 401) {
+        final response = await AuthService.postRefreshToken();
+        if (response == true) {
+          checkFollowManga(id);
+        }
+      } else {
+        throw Exception(e);
+      }
     }
   }
 
@@ -75,24 +92,15 @@ class DetailViewModel extends ChangeNotifier {
 
   Future<void> getMangaData({required String id}) async {
     manga = null;
+    notifyListeners();
     try {
+      checkFollowManga(id);
       manga = await DetailService.getMangaDetail(id: id);
       notifyListeners();
     } catch (e) {
       throw Exception(e);
     } finally {
       notifyListeners();
-    }
-  }
-
-  void retryToken(DioException e, String id) async {
-    if (e.response?.statusCode == 401) {
-      final response = await AuthService.postRefreshToken();
-      if (response == true) {
-        checkFollowManga(id);
-      }
-    } else {
-      throw Exception(e);
     }
   }
 }

@@ -25,10 +25,6 @@ class _DetailChapterState extends State<DetailChapter> {
     _chapterController.addPageRequestListener((pageKey) {
       loadChapterDataa(pageKey);
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<DetailViewModel>(context, listen: false)
-          .checkFollowManga(widget.id);
-    });
     super.initState();
   }
 
@@ -65,7 +61,20 @@ class _DetailChapterState extends State<DetailChapter> {
             child: PagedListView<int, Chapter>(
                 pagingController: _chapterController,
                 builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, Chapter item, int index) {
+                    firstPageProgressIndicatorBuilder: (context) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: ColorConstant.colorPrimary,
+                    ),
+                  );
+                }, firstPageErrorIndicatorBuilder: (context) {
+                  return Center(
+                    child: Text(
+                      "There is no chapter",
+                      style: TextStyleConstant.header2,
+                    ),
+                  );
+                }, itemBuilder: (context, Chapter item, int index) {
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
