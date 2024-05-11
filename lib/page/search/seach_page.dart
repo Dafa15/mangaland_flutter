@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/detail/detail_page.dart';
 import 'package:mangaland_flutter/page/search/search_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -88,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 16.0,
                                     mainAxisSpacing: 16.0,
-                                    mainAxisExtent: 281),
+                                    mainAxisExtent: 290),
                             itemCount: viewModel.listManga.length,
                             padding: const EdgeInsets.all(16),
                             itemBuilder: (context, int index) {
@@ -107,26 +109,40 @@ class _SearchPageState extends State<SearchPage> {
                                   children: [
                                     SizedBox(
                                       height: 250,
-                                      child: Image.network(
-                                        "https://uploads.mangadex.org/covers/${viewModel.listManga[index].id}/${viewModel.listManga[index].coverArt!.filename}",
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            "https://uploads.mangadex.org/covers/${viewModel.listManga[index].id}/${viewModel.listManga[index].coverArt!.filename}",
+                                        height: 170,
+                                        width: double.infinity,
                                         fit: BoxFit.cover,
-                                        loadingBuilder:
-                                            (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) {
                                           return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
+                                              child: Icon(
+                                            Icons.error,
+                                            color: Colors.red,
+                                          ));
                                         },
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const SizedBox(
-                                            width: double.maxFinite,
-                                            height: double.infinity,
-                                            child: Center(
-                                              child:
-                                                  Text("Failed to load image"),
+                                        placeholder: (context, url) {
+                                          return Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade300,
+                                            highlightColor:
+                                                Colors.grey.shade100,
+                                            child: Container(
+                                              color: Colors.grey,
+                                              height: 170,
+                                              width: 120,
                                             ),
                                           );
                                         },
