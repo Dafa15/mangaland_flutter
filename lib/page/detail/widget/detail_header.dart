@@ -41,6 +41,13 @@ class _DetailHeaderState extends State<DetailHeader> {
                     height: 170,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorWidget: (context, url, error) {
+                      return const Center(
+                          child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ));
+                    },
                     placeholder: (context, url) {
                       return Shimmer.fromColors(
                         baseColor: Colors.grey.shade300,
