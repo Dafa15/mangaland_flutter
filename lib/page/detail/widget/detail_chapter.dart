@@ -8,7 +8,7 @@ import 'package:mangaland_flutter/page/detail/detail_view_model.dart';
 import 'package:provider/provider.dart';
 
 class DetailChapter extends StatefulWidget {
-  final id;
+  final String id;
   const DetailChapter({super.key, required this.id});
 
   @override

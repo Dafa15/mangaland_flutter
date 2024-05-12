@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
-import 'package:mangaland_flutter/page/home/completed_section.dart';
-import 'package:mangaland_flutter/page/home/popular_section.dart';
-import 'package:mangaland_flutter/page/home/recent_section.dart';
+import 'package:mangaland_flutter/page/home/widget/completed_section.dart';
+import 'package:mangaland_flutter/page/home/widget/popular_section.dart';
+import 'package:mangaland_flutter/page/home/widget/recent_section.dart';
 import 'package:mangaland_flutter/page/login/login_page.dart';
 import 'package:mangaland_flutter/page/search/seach_page.dart';
 import 'package:mangaland_flutter/utils/shared_pref.dart';

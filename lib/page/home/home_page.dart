@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/follow/follow_screen.dart';
-import 'package:mangaland_flutter/page/home/explore/explore.screen.dart';
+import 'package:mangaland_flutter/page/explore/explore.screen.dart';
 import 'package:mangaland_flutter/page/home/home_screen.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
 import 'package:mangaland_flutter/page/recommendation/recommend_page.dart';

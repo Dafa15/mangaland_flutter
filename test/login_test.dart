@@ -59,8 +59,8 @@ void main() {
     ));
     await tester.pump();
 
-    await tester.enterText(find.byKey(Key("Username")), 'dafa');
-    await tester.enterText(find.byKey(Key("Password")), 'dafa');
+    await tester.enterText(find.byKey(const Key("Username")), 'dafa');
+    await tester.enterText(find.byKey(const Key("Password")), 'dafa');
 
     await tester.tap(find.text("Login"));
     await tester.pump();

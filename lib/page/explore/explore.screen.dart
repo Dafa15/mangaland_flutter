@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
-import 'package:mangaland_flutter/page/home/explore/all_tab.dart';
-import 'package:mangaland_flutter/page/home/explore/completed_tab.dart';
-import 'package:mangaland_flutter/page/home/explore/ongoing_tab.dart';
+import 'package:mangaland_flutter/page/explore/widget/all_tab.dart';
+import 'package:mangaland_flutter/page/explore/widget/completed_tab.dart';
+import 'package:mangaland_flutter/page/explore/widget/ongoing_tab.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
