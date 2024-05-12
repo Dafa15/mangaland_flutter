@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mangaland_flutter/model/manga.dart';
-import 'package:mangaland_flutter/page/global_widget/paged_grid_view_widget.dart';
+import 'package:mangaland_flutter/global_widget/paged_grid_view_widget.dart';
 import 'package:mangaland_flutter/service/home_service.dart';
 
 

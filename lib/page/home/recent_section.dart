@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mangaland_flutter/page/global_widget/list_view_widget.dart';
+import 'package:mangaland_flutter/global_widget/list_view_widget.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 
