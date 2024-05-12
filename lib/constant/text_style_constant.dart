@@ -3,10 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 
 class TextStyleConstant {
-  final double fontSizeCustom;
-
-  TextStyleConstant(this.fontSizeCustom);
-
   static TextStyle header2 = GoogleFonts.oswald(
       fontWeight: FontWeight.w500,
       color: ColorConstant.colorPrimary,
