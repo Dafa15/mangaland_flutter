@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
   List<Widget> widgetOptions = <Widget>[
     const HomeScreen(),
     const ExploreScreen(),
@@ -51,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
-                  "Your connection is unstable",
+                  "Failed to load manga",
                   style: TextStyleConstant.header2,
                 ),
               );
