@@ -130,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                 userName: userNameController.text,
                                 password: passwordController.text,
                               );
+                              if (!context.mounted) return;
                               if (isSuccess) {
                                 resetVariable();
                                 Navigator.pushReplacement(

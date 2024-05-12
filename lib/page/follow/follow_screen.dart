@@ -63,9 +63,10 @@ class _FollowScreenState extends State<FollowScreen> {
     return Scaffold(
       backgroundColor: ColorConstant.bgColor,
       appBar: AppBar(
+        shape: Border(bottom: BorderSide(color: ColorConstant.colorPrimary)),
         centerTitle: true,
         title: Text(
-          "Favorite",
+          "Followed",
           style: TextStyleConstant.header1,
         ),
         backgroundColor: ColorConstant.bgColor,

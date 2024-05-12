@@ -34,9 +34,14 @@ class _DetailPageState extends State<DetailPage> {
             );
           } else if (snapshot.hasError) {
             return Center(
-              child: Text(
-                "Failed to load manga",
-                style: TextStyleConstant.header2,
+              child: Scaffold(
+                backgroundColor: ColorConstant.bgColor,
+                body: Center(
+                  child: Text(
+                    "Failed to load manga",
+                    style: TextStyleConstant.header2,
+                  ),
+                ),
               ),
             );
           } else {
@@ -111,7 +116,7 @@ class _DetailPageState extends State<DetailPage> {
                       )
                     ],
                   ),
-                  floatingActionButton: FloatingActionButton(
+                  floatingActionButton: FloatingActionButton( 
                       backgroundColor: ColorConstant.colorSecondary,
                       onPressed: () {},
                       child: viewModel.follow == true
