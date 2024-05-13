@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:mangaland_flutter/env/env.dart';
 import 'package:mangaland_flutter/model/login_response.dart';
 import 'package:mangaland_flutter/utils/base_url.dart';
-import 'package:mangaland_flutter/utils/client.dart';
 import 'package:mangaland_flutter/utils/shared_pref.dart';
 
 class AuthService {
@@ -16,8 +16,8 @@ class AuthService {
         'grant_type': 'password',
         'username': userName,
         'password': password,
-        'client_id': ClientKey.clientId,
-        'client_secret': ClientKey.clientSecretKey,
+        'client_id': Env.clientId,
+        'client_secret': Env.clientSecretKey,
       };
       final response = await dio.post(BaseUrl.loginUrl,
           data: data,
@@ -43,8 +43,8 @@ class AuthService {
       Map<String, dynamic> data = {
         'grant_type': 'refresh_token',
         'refresh_token': refreshToken,
-        'client_id': ClientKey.clientId,
-        'client_secret': ClientKey.clientSecretKey,
+        'client_id': Env.clientId,
+        'client_secret': Env.clientSecretKey,
       };
       final response = await dio.post(BaseUrl.loginUrl,
           data: data,

@@ -9,8 +9,8 @@
 .history
 .svn/
 migrate_working_dir/
-/lib/utils/client.dart
-/lib/utils/gemini_key.dart
+.env
+lib/env/env.g.dart
 
 # IntelliJ related
 *.iml
