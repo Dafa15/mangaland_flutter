@@ -99,22 +99,22 @@ class DetailService {
   }
 
   static Future<String> postFollow(String id) async {
-      final token = await SharedPref.getToken();
-      Map<String, dynamic> headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      };
-      final response = await dio.post("${BaseUrl.baseUrl}/manga/$id/follow",
-          options: Options(headers: headers));
-      final result = response.data['result'];
-      return result;
+    final token = await SharedPref.getToken();
+    Map<String, dynamic> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+    final response = await dio.post("${BaseUrl.baseUrl}/manga/$id/follow",
+        options: Options(headers: headers));
+    final result = response.data['result'];
+    return result;
   }
 
   static Future<String> checkFollow(String id) async {
+    try {
       final token = await SharedPref.getToken();
       Map<String, dynamic> headers = {
-        'Authorization':
-            'Bearer $token',
+        'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
       };
       final response = await dio.get(
@@ -122,18 +122,21 @@ class DetailService {
           options: Options(headers: headers));
       final result = response.data['result'];
       return result;
+    } catch (e) {
+      return "no";
+    }
   }
 
   static Future<String> deleteFollow(String id) async {
-      final token = await SharedPref.getToken();
-      Map<String, dynamic> headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json', // Example header
-      };
-      final response = await dio.delete("${BaseUrl.baseUrl}/manga/$id/follow",
-          options: Options(headers: headers));
-      final result = response.data['result'];
-      return result;
+    final token = await SharedPref.getToken();
+    Map<String, dynamic> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json', // Example header
+    };
+    final response = await dio.delete("${BaseUrl.baseUrl}/manga/$id/follow",
+        options: Options(headers: headers));
+    final result = response.data['result'];
+    return result;
   }
 
   static String getCover(String id, String fileName) {

@@ -58,7 +58,7 @@ class DetailViewModel extends ChangeNotifier {
     }
   }
 
-  void checkFollowManga(String id) async {
+  Future<void> checkFollowManga(String id) async {
     follow = false;
     try {
       final result = await DetailService.checkFollow(id);
@@ -89,7 +89,7 @@ class DetailViewModel extends ChangeNotifier {
   Future<void> getMangaData({required String id}) async {
     manga = null;
     try {
-      checkFollowManga(id);
+      await checkFollowManga(id);
       manga = await DetailService.getMangaDetail(id: id);
       notifyListeners();
     } catch (e) {
