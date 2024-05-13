@@ -17,9 +17,4 @@ class Chapter {
     required this.publishAt,
     required this.version,
   });
-
-  @override
-  String toString() {
-    return 'Chapter{id: $id, volume: $volume, chapter: $chapter, title: $title, pages: $pages, publishAt: $publishAt, version: $version}';
-  }
 }

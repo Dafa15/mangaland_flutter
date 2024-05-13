@@ -10,9 +10,4 @@ class ChapterData {
     required this.hash,
     required this.data,
   });
-
-  @override
-  String toString() {
-    return 'ChapterData{chapter: $chapter, hash: $hash, data: $data}';
-  }
 }

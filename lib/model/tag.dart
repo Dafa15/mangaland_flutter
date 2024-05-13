@@ -10,9 +10,4 @@ class Tag {
     required this.name,
     required this.version,
   });
-
-  @override
-  String toString() {
-    return 'Tag{id: $id, group: $group, name: $name, version: $version}';
-  }
 }
