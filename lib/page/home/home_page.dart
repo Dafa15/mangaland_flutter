@@ -5,7 +5,7 @@ import 'package:mangaland_flutter/page/follow/follow_screen.dart';
 import 'package:mangaland_flutter/page/explore/explore.screen.dart';
 import 'package:mangaland_flutter/page/home/home_screen.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
-import 'package:mangaland_flutter/page/recommendation/recommend_page.dart';
+import 'package:mangaland_flutter/page/recommendation/recommend_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  String? userName;
   late Future<void> _getAllListFuture;
 
   @override
