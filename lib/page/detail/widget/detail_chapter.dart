@@ -55,65 +55,65 @@ class _DetailChapterState extends State<DetailChapter> {
   Widget build(BuildContext context) {
     return Consumer<DetailViewModel>(
       builder: (context, viewModel, child) {
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: PagedListView<int, Chapter>(
-                pagingController: _chapterController,
-                builderDelegate: PagedChildBuilderDelegate(
-                    firstPageErrorIndicatorBuilder: (context) {
-                  return Center(
-                    child: Text(
-                      "There is no chapter",
-                      style: TextStyleConstant.header2,
-                    ),
-                  );
-                }, itemBuilder: (context, Chapter item, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ChapterPage(chapterId: item.id)));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: ColorConstant.colorOnSecondary, width: 1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "Chapter ${item.chapter}",
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: PagedListView<int, Chapter>(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              pagingController: _chapterController,
+              builderDelegate: PagedChildBuilderDelegate(
+                  firstPageErrorIndicatorBuilder: (context) {
+                return Center(
+                  child: Text(
+                    "There is no chapter",
+                    style: TextStyleConstant.header2,
+                  ),
+                );
+              }, itemBuilder: (context, Chapter item, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ChapterPage(chapterId: item.id)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: ColorConstant.colorOnSecondary, width: 1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Chapter ${item.chapter}",
+                                style: TextStyleConstant.p2,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  item.title != null && item.title != ''
+                                      ? " - ${item.title}"
+                                      : '',
                                   style: TextStyleConstant.p2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    item.title != null && item.title != ''
-                                        ? " - ${item.title}"
-                                        : '',
-                                    style: TextStyleConstant.p2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(item.publishAt, style: TextStyleConstant.p4)
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          Text(item.publishAt, style: TextStyleConstant.p4)
+                        ],
                       ),
                     ),
-                  );
-                })),
-          ),
+                  ),
+                );
+              })),
         );
       },
     );

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
+import 'package:mangaland_flutter/constant/image_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/detail/detail_page.dart';
 import 'package:mangaland_flutter/page/search/search_view_model.dart';
@@ -81,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                     ? Expanded(
                         child: Center(
                           child: searchController.text.isEmpty
-                              ? Lottie.asset('assets/search.json', height: 200)
+                              ? Lottie.asset(ImageConstant.searchLottie, height: 200)
                               : Text(
                                   "Manga not found",
                                   style: TextStyleConstant.header2,

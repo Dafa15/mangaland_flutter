@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:mangaland_flutter/model/author.dart';
 import 'package:mangaland_flutter/model/cover_art.dart';
 import 'package:mangaland_flutter/model/manga.dart';
-import 'package:mangaland_flutter/model/statistik_response.dart';
+import 'package:mangaland_flutter/model/statistic.dart';
 import 'package:mangaland_flutter/service/parse_data.dart';
 import 'package:mangaland_flutter/utils/base_url.dart';
 

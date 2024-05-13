@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
+import 'package:mangaland_flutter/constant/image_constant.dart';
 import 'package:mangaland_flutter/page/home/home_page.dart';
 import 'package:mangaland_flutter/page/login/login_page.dart';
 import 'package:mangaland_flutter/service/auth_service.dart';
@@ -53,7 +54,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.bgColor,
-      body: Center(child: Image.asset('assets/mangaland_logo.png')),
+      body: Center(child: Image.asset(ImageConstant.iconApp)),
     );
   }
 }

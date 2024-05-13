@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
+import 'package:mangaland_flutter/constant/image_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
 import 'package:mangaland_flutter/page/recommendation/recommendation_view_model.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                       width: 16,
                     ),
                     Image.asset(
-                      "assets/luffy.png",
+                      ImageConstant.luffyImg,
                       height: 100,
                     ),
                   ],
@@ -153,7 +154,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
                                   ),
                                   const SizedBox(height: 16),
                                   Lottie.asset(
-                                    'assets/chainsaw.json',
+                                    ImageConstant.chainsawLottie,
                                     width: 200,
                                     height: 200,
                                     fit: BoxFit.fill,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mangaland_flutter/constant/color_constant.dart';
 import 'package:mangaland_flutter/constant/text_style_constant.dart';
-import 'package:mangaland_flutter/page/follow/follow_screen.dart';
-import 'package:mangaland_flutter/page/explore/explore.screen.dart';
-import 'package:mangaland_flutter/page/home/home_screen.dart';
+import 'package:mangaland_flutter/page/follow/follow_page.dart';
+import 'package:mangaland_flutter/page/explore/explore.page.dart';
+import 'package:mangaland_flutter/page/home/widget/home_screen.dart';
 import 'package:mangaland_flutter/page/home/home_view_model.dart';
-import 'package:mangaland_flutter/page/recommendation/recommend_screen.dart';
+import 'package:mangaland_flutter/page/recommendation/recommend_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {

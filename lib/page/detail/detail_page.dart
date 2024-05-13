@@ -6,6 +6,7 @@ import 'package:mangaland_flutter/page/detail/widget/detail_chapter.dart';
 import 'package:mangaland_flutter/page/detail/widget/detail_genre.dart';
 import 'package:mangaland_flutter/page/detail/widget/detail_header.dart';
 import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
 
 class DetailPage extends StatefulWidget {
   final String mangaId;
@@ -53,70 +54,76 @@ class _DetailPageState extends State<DetailPage> {
                     backgroundColor: Colors.transparent,
                     iconTheme: IconThemeData(color: ColorConstant.colorPrimary),
                   ),
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const DetailHeader(),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          "Description",
-                          style: TextStyleConstant.header2,
+                  body: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const DetailHeader(),
+                        const SizedBox(
+                          height: 16,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          viewModel.manga?.description ?? '-',
-                          style: TextStyleConstant.p4,
-                          maxLines: 6,
-                          overflow: TextOverflow.ellipsis,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Text(
+                            "Description",
+                            style: TextStyleConstant.header2,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          "Genres",
-                          style: TextStyleConstant.header2,
+                        const SizedBox(
+                          height: 8,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const DetailGenre(),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Text(
-                          "Chapters",
-                          style: TextStyleConstant.header2,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: ReadMoreText(
+                            viewModel.manga?.description ?? '-',
+                            style: TextStyleConstant.p4,
+                            trimMode: TrimMode.Line,
+                            trimLines: 4,
+                            colorClickableText: ColorConstant.colorPrimary,
+                            trimCollapsedText: 'Show more',
+                            trimExpandedText: ' Show less',
+                            moreStyle: TextStyleConstant.p1,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 1,
-                        color: ColorConstant.colorOnPrimary,
-                      ),
-                      DetailChapter(
-                        id: widget.mangaId,
-                      )
-                    ],
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Text(
+                            "Genres",
+                            style: TextStyleConstant.header2,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const DetailGenre(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0),
+                          child: Text(
+                            "Chapters",
+                            style: TextStyleConstant.header2,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: ColorConstant.colorOnPrimary,
+                        ),
+                        DetailChapter(
+                          id: widget.mangaId,
+                        )
+                      ],
+                    ),
                   ),
-                  floatingActionButton: FloatingActionButton( 
+                  floatingActionButton: FloatingActionButton(
                       backgroundColor: ColorConstant.colorSecondary,
                       onPressed: () {},
                       child: viewModel.follow == true

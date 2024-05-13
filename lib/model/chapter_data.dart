@@ -15,5 +15,4 @@ class ChapterData {
   String toString() {
     return 'ChapterData{chapter: $chapter, hash: $hash, data: $data}';
   }
-
 }

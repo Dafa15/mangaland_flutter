@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mangaland_flutter/env/env.dart';
-import 'package:mangaland_flutter/page/recommendation/recommend_screen.dart';
+import 'package:mangaland_flutter/page/recommendation/recommend_page.dart';
 
 void main() {
   testWidgets('RecommendationPage UI Test', (WidgetTester tester) async {

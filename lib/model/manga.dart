@@ -1,6 +1,6 @@
 import 'package:mangaland_flutter/model/author.dart';
 import 'package:mangaland_flutter/model/cover_art.dart';
-import 'package:mangaland_flutter/model/statistik_response.dart';
+import 'package:mangaland_flutter/model/statistic.dart';
 import 'package:mangaland_flutter/model/tag.dart';
 
 class Manga {
